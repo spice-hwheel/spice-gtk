@@ -1906,6 +1906,8 @@ static int button_gdk_to_spice(guint gdk)
         [ 3 ] = SPICE_MOUSE_BUTTON_RIGHT,
         [ 4 ] = SPICE_MOUSE_BUTTON_UP,
         [ 5 ] = SPICE_MOUSE_BUTTON_DOWN,
+        [ 6 ] = SPICE_MOUSE_BUTTON_WHEEL_LEFT,
+        [ 7 ] = SPICE_MOUSE_BUTTON_WHEEL_RIGHT,
     };
 
     if (gdk < SPICE_N_ELEMENTS(map)) {
@@ -2030,6 +2032,10 @@ static gboolean scroll_event(GtkWidget *widget, GdkEventScroll *scroll)
         button = SPICE_MOUSE_BUTTON_UP;
     else if (scroll->direction == GDK_SCROLL_DOWN)
         button = SPICE_MOUSE_BUTTON_DOWN;
+    else if (scroll->direction == GDK_SCROLL_LEFT)
+        button = SPICE_MOUSE_BUTTON_WHEEL_LEFT;
+    else if (scroll->direction == GDK_SCROLL_RIGHT)
+        button = SPICE_MOUSE_BUTTON_WHEEL_RIGHT;
     else {
         DISPLAY_DEBUG(display, "unsupported scroll direction");
         return true;
